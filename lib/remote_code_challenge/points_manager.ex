@@ -26,6 +26,11 @@ defmodule RemoteCodeChallenge.PointsManager do
   end
 
   @impl true
+  def handle_info(_msg, state) do
+    {:noreply, state}
+  end
+
+  @impl true
   def handle_call(:fetch_users, _from, state) do
     users =
       state.max_number
