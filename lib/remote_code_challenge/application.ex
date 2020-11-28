@@ -14,9 +14,9 @@ defmodule RemoteCodeChallenge.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: RemoteCodeChallenge.PubSub},
       # Start the Endpoint (http/https)
-      RemoteCodeChallengeWeb.Endpoint
+      RemoteCodeChallengeWeb.Endpoint,
       # Start a worker by calling: RemoteCodeChallenge.Worker.start_link(arg)
-      # {RemoteCodeChallenge.Worker, arg}
+      RemoteCodeChallenge.PointsManager
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
