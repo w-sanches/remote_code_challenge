@@ -4,6 +4,7 @@ defmodule RemoteCodeChallenge.User do
   import Ecto.Query, only: [from: 2]
 
   @required_attributes [:points]
+  @derive {Jason.Encoder, only: [:id, :points]}
 
   schema "users" do
     field :points, :integer, default: 0
