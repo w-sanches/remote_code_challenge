@@ -1,0 +1,9 @@
+version: "3.4"
+
+services:
+  postgres:
+    image: postgres:13.1
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "5432:5432"
