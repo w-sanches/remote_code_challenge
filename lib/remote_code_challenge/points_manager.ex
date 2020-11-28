@@ -25,6 +25,18 @@ defmodule RemoteCodeChallenge.PointsManager do
     {:noreply, %{state | max_number: Enum.random(0..100)}}
   end
 
+  @impl true
+  def handle_call(:fetch_users, _from, state) do
+    users =
+      state.max_number
+      |> User.with_points_higher_than()
+      |> Repo.all()
+
+    response = %{users: users, timestamp: state.timestamp}
+
+    {:reply, response, %{state | timestamp: NaiveDateTime.local_now()}}
+  end
+
   defp do_update_points() do
     User
     |> Repo.all()
