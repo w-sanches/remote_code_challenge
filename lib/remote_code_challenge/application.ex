@@ -16,7 +16,7 @@ defmodule RemoteCodeChallenge.Application do
       # Start the Endpoint (http/https)
       RemoteCodeChallengeWeb.Endpoint,
       # Start a worker by calling: RemoteCodeChallenge.Worker.start_link(arg)
-      RemoteCodeChallenge.PointsManager
+      {RemoteCodeChallenge.PointsManagerWorker, points_manager_config()}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -30,5 +30,9 @@ defmodule RemoteCodeChallenge.Application do
   def config_change(changed, _new, removed) do
     RemoteCodeChallengeWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  defp points_manager_config do
+    %{max_number: Enum.random(0..100), refresh_interval: 60_000, timestamp: nil}
   end
 end

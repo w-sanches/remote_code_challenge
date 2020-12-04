@@ -3,7 +3,7 @@ defmodule RemoteCodeChallengeWeb.UsersController do
 
   @spec index(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def index(conn, _params) do
-    users = GenServer.call(RemoteCodeChallenge.PointsManager, :fetch_users)
+    users = GenServer.call(RemoteCodeChallenge.PointsManagerWorker, :fetch_users)
 
     render(conn, :index, users: users)
   end
