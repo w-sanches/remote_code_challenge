@@ -33,6 +33,6 @@ defmodule RemoteCodeChallenge.Application do
   end
 
   defp points_manager_config do
-    %{max_number: Enum.random(0..100), refresh_interval: 60_000, timestamp: nil}
+    %{max_number: Enum.random(0..100), timestamp: nil}
   end
 end

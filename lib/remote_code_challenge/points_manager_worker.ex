@@ -1,6 +1,7 @@
 defmodule RemoteCodeChallenge.PointsManagerWorker do
   use GenServer
   alias RemoteCodeChallenge.PointsManager
+  @refresh_interval 60_000
 
   def start_link(initial_state) do
     GenServer.start_link(__MODULE__, initial_state, name: __MODULE__)
@@ -9,7 +10,7 @@ defmodule RemoteCodeChallenge.PointsManagerWorker do
   @impl true
   def init(state) do
     PointsManager.update_user_points()
-    Process.send_after(self(), :update_points, state.refresh_interval)
+    Process.send_after(self(), :update_points, @refresh_interval)
 
     {:ok, state}
   end
@@ -17,7 +18,7 @@ defmodule RemoteCodeChallenge.PointsManagerWorker do
   @impl true
   def handle_info(:update_points, state) do
     PointsManager.update_user_points()
-    Process.send_after(self(), :update_points, state.refresh_interval)
+    Process.send_after(self(), :update_points, @refresh_interval)
 
     {:noreply, PointsManager.update_max_number(state)}
   end
